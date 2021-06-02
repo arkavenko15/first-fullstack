@@ -1,24 +1,70 @@
-import logo from './logo.svg';
 import './App.css';
+import React, {useEffect, useState} from 'react'
+import Axios from 'axios'
 
 function App() {
+  const[movieName, setMovieName]=useState("");
+  const[review, setReview]=useState("");
+  const [movieReviewList, setMovieList] = useState([]);
+  const [updatedReview, setUpdatedReview] = useState("");
+
+  useEffect(()=>{
+    Axios.get('https://kaven-movie-reviewer.herokuapp.com/api/get').then((response)=>{
+        setMovieList(response.data)
+    })
+  },[])
+
+
+  const submitReview =()=>{
+      Axios.post('https://kaven-movie-reviewer.herokuapp.com/api/insert',{
+        movieName:movieName,
+        movieReview:review,
+      });
+
+        setMovieList([...movieReviewList,
+        {movieName: movieName, movieReview:review},
+      ]);   
+  };
+  const deleteReview=(movie)=>{
+    Axios.delete(`https://kaven-movie-reviewer.herokuapp.com/api/delete/${movie}`)
+        setMovieList(movieReviewList.filter((val)=>{
+          console.log(val)
+          return movie != val.movieName
+        }))
+  }
+  const updateReview=(movie)=>{
+    Axios.put("https://kaven-movie-reviewer.herokuapp.com/api/update",{movieName:movie, movieReview:updatedReview,})
+    setMovieList(movieReviewList.map((val)=>{
+      console.log(updatedReview)
+      return movie === val.movieName ? {movieName: val.movieName, movieReview:updatedReview,}:val
+    }))
+
+    }
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+      <div className="title">Movie Rewiews</div>
+          <div className="form">
+              <input className="movie-name" placeholder="Movie Name..." onChange={(e)=>{setMovieName(e.target.value)}}></input>
+              <input className="movie-review" placeholder="Movie Review..." onChange={(e)=>{setReview(e.target.value)}}></input>
+              <button className="add-btn" onClick={submitReview}>Add review</button>
+              {movieReviewList.map((val)=>{
+                return (              
+                  <div className="item"  key={val.id}>
+                      <div className="name-item"> <p className="title-item">Movie Name:</p> {val.movieName} </div> 
+                      <div className="review-item"><br/> <p className="title-item">Movie Review:</p> {val.movieReview}</div>
+                      <div className="navigation">
+                        <button className="update-btn" onClick={()=>{updateReview(val.movieName)}}>Update</button>
+                        <input type="text" className="update-input" onChange={(e)=>{
+                          setUpdatedReview(e.target.value)
+                        }}></input>
+                        <button className="delete-btn" onClick={()=>{deleteReview(val.movieName)}}>Delete</button>
+                      </div>
+                  </div>
+                
+                )
+              })}
+          </div>
+      </div>
   );
 }
 

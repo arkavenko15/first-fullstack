@@ -1,38 +1,96 @@
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Georgia, 'Times New Roman', Times, serif;
+  background-color: rgb(221, 181, 241);
+}
 .App {
   text-align: center;
-}
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
 }
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.title{
+  font-size: 30px;
+  text-transform: uppercase;
+  color: blueviolet;
+  padding: 20px;
+  font-weight: 800;
 }
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.form{
+  width: 900px;
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  justify-content: space-evenly;
+  margin-left: auto;
+  margin-right: auto;
+  flex-wrap: wrap;
+  align-items: flex-start;
 }
-
-.App-link {
-  color: #61dafb;
+.movie-name , .movie-review{
+  width: 300px;
+  height: 40px;
+  font-size: 16px;
+  border-radius: 10px;
+  padding: 5px 10px;
+  background-color: transparent;
+  border: solid 2px #dedefa;
 }
+input:focus{
+  outline: none;
+}
+.add-btn{
+  width: 200px;
+  border: none;
+  border-radius: 10px;
+  background-color: darkorchid;
+  color: #dedefa;
+  height: 40px;
+  font-size: 18px;
+  font-weight: 800;
+}
+button:active{
+  background-color: darkmagenta;
+}
+.item{
+  border: 2px solid darkviolet;
+  border-radius: 10px;
+  padding: 20px 25px;
+  color: #444343;
+  font-size: 22px;
+  font-weight: 600;
+  width: 100%;
+  margin-bottom: 20px;
+  margin-top: 10px;
+}
+.title-item{
+  color: aliceblue;
+  text-align: left;
+}
+.review-item , .name-item{
+  border: aliceblue solid 1px;
+  border-radius: 10px;
+  padding: 5px;
+  margin-bottom: 5px;
+}
+.update-btn , .delete-btn{
+  padding: 20px 25px;
+  background-color: darkorchid;
+  border: none;
+  border-radius: 10px;
+  color: #dedefa;
+  font-weight: 800;
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+}
+.navigation{
+  display: flex;
+  justify-content: space-evenly;
+  margin: 20px;
+}
+.update-input{
+  width: 300px;
+  height: 60px;
+  font-size: 16px;
+  border-radius: 10px;
+  padding: 5px 10px;
+  background-color: transparent;
+  border: solid 2px #dedefa;
 }
